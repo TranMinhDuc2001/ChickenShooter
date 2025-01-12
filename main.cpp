@@ -78,8 +78,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             DispatchMessage(&message);
         }
         //Simulate
-        clear_screen(render_state,0xff5500);
-        draw_rect(render_state,50,50,200,500,0xff0000);
+        clear_screen(render_state,0xff5000);
+        draw_rect(render_state,.5,.5,.2,.2,0x00ff22);
         //Render
         //render_background(render_state);
 

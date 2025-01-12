@@ -1,8 +1,7 @@
-
 #include "Header.h"
 
 void render_background(Render_State render_state){
-    unsigned int* pixel = (unsigned int*) render_state.memory;
+    u32* pixel = (u32*) render_state.memory;
     for(int i = 0 ; i < render_state.height ; i++){
         for(int j = 0 ; j < render_state.width ; j++){
             *pixel++ = 0xff00ff * i + 0x00ff00 * j;
@@ -12,8 +11,8 @@ void render_background(Render_State render_state){
 
 }
 
-void clear_screen(Render_State render_state,unsigned int color){
-    unsigned int* pixel = (unsigned int*) render_state.memory;
+void clear_screen(Render_State render_state,u32 color){
+    u32* pixel = (u32*) render_state.memory;
     for(int i = 0 ; i < render_state.height ; i++){
         for(int j = 0 ; j < render_state.width ; j++){
             *pixel++ = color;
@@ -28,17 +27,30 @@ inline int clamp(int min,int val,int max){
     return val;
 }
 
-void draw_rect(Render_State render_state,int xs,int ys,int xe,int ye,unsigned int color){
+static void draw_rect_in_pixels(Render_State render_state,int xs,int ys,int xe,int ye,u32 color){
     xs = clamp(0,xs,render_state.width);
     xe = clamp(0,xe,render_state.width);
     ys = clamp(0,ys,render_state.height);
     ye = clamp(0,ye,render_state.height);
 
-    for(int i = xs ; i < xe ; i++){
-        unsigned int* pixel = (unsigned int*) render_state.memory + xs + i * render_state.width;
-        for(int j = ys ; j < ye ; j++){
+    for(int i = ys ; i < ye ; i++){
+        u32* pixel = (u32*) render_state.memory + xs + i * render_state.width;
+        for(int j = xs ; j < xe ; j++){
             *pixel++ = color;
         }
 
     }
+}
+
+void draw_rect(Render_State render_state,float x, float y, float half_size_x, float half_size_y,u32 color){
+    x *= render_state.height;
+    y *= render_state.height;
+    half_size_x *= render_state.height;
+    half_size_y *= render_state.height;
+    
+    int x0 = x - half_size_x;
+    int x1 = x + half_size_x;
+    int y0 = y - half_size_y;
+    int y1 = y + half_size_y;
+    draw_rect_in_pixels(render_state,x0,y0,x1,y1,color);
 }

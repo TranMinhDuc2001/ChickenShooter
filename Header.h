@@ -1,5 +1,5 @@
 #include <windows.h> 
-
+#include "utils.h"
 //Define
 #define global_variable static
 
@@ -13,5 +13,5 @@ struct Render_State {
 
 //Function
 void render_background(Render_State);
-void clear_screen(Render_State,unsigned int);
-void draw_rect(Render_State,int,int,int,int,unsigned int);
+void clear_screen(Render_State,u32);
+void draw_rect(Render_State,float,float,float,float,u32);

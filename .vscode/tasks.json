@@ -10,6 +10,7 @@
 				"${workspaceFolder}\\main.cpp",
 				"${workspaceFolder}\\renderer.cpp",
 				"${workspaceFolder}\\Header.h",
+				"${workspaceFolder}\\utils.h",
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe",
 				"-lgdi32"
