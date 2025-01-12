@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "C/C++: g++.exe build active file",
+			"command": "C:\\Program Files (x86)\\mingw32\\bin\\g++.exe",
+			"args": [
+				"-g",
+				"${workspaceFolder}\\main.cpp",
+				"${workspaceFolder}\\renderer.cpp",
+				"${workspaceFolder}\\Header.h",
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"-lgdi32"
+			],
+			"options": {
+				"cwd": "C:\\Program Files (x86)\\mingw32\\bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		}
+	]
+}
