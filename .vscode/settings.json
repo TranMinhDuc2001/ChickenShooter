@@ -99,7 +99,8 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "typeinfo": "cpp",
-    "string.h": "c"
+    "string.h": "c",
+    "random": "cpp"
   },
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
 }

@@ -42,12 +42,17 @@ static void draw_rect_in_pixels(Render_State render_state,int xs,int ys,int xe,i
     }
 }
 
+global_variable float render_scale = 0.01f;
+
 void draw_rect(Render_State render_state,float x, float y, float half_size_x, float half_size_y,u32 color){
-    x *= render_state.height;
-    y *= render_state.height;
-    half_size_x *= render_state.height;
-    half_size_y *= render_state.height;
+    x *= render_state.height * render_scale;
+    y *= render_state.height * render_scale;
+    half_size_x *= render_state.height * render_scale;
+    half_size_y *= render_state.height * render_scale;
     
+    x += render_state.width / 2.f;
+    y += render_state.height / 2.f;
+
     int x0 = x - half_size_x;
     int x1 = x + half_size_x;
     int y0 = y - half_size_y;

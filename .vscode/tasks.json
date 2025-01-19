@@ -9,8 +9,7 @@
 				"-g",
 				"${workspaceFolder}\\main.cpp",
 				"${workspaceFolder}\\renderer.cpp",
-				"${workspaceFolder}\\Header.h",
-				"${workspaceFolder}\\utils.h",
+				"${workspaceFolder}\\simulate.cpp",
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe",
 				"-lgdi32"

@@ -10,7 +10,7 @@ LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam,LPARAM lPar
     switch (uMsg){
         case WM_CLOSE:{
             /* code */
-
+            running = false;
         } break;
 
         case WM_DESTROY:{
@@ -70,16 +70,52 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     running = true;
 
     HDC hdc = GetDC(window);
+    Input input = {};
+
+    float delta_time = 0.016666f; // 60PFS
+    LARGE_INTEGER frame_begin_time;
+    QueryPerformanceCounter(&frame_begin_time);
+
+    float performance_frequency;
+    {
+        LARGE_INTEGER perf;
+        QueryPerformanceFrequency(&perf);
+        performance_frequency = (float)perf.QuadPart;
+    }
+
+
     while(running){
         //Input
         MSG message;
+        for(int i = 0 ; i < BUTTON_COUNT ; i++){
+            input.buttons[i].changed = false;
+        }
         while(PeekMessage(&message,window,0,0,PM_REMOVE)){
-            TranslateMessage(&message);
-            DispatchMessage(&message);
+            switch(message.message){
+                case WM_KEYUP:
+                case WM_KEYDOWN:{
+                    u32 vk_code = (u32)message.wParam;
+                    bool is_down = ((message.lParam & (1 << 31)) == 0);
+
+                    switch (vk_code){
+                        process_button(BUTTON_UP,VK_UP);
+                        process_button(BUTTON_DOWN,VK_DOWN);
+                        process_button(BUTTON_LEFT,VK_LEFT);
+                        process_button(BUTTON_RIGHT,VK_RIGHT);
+                    }
+                }break;
+                default:{
+                    TranslateMessage(&message);
+                    DispatchMessage(&message);
+                }
+
+            }
+
         }
         //Simulate
-        clear_screen(render_state,0xff5000);
-        draw_rect(render_state,.5,.5,.2,.2,0x00ff22);
+
+        simulate_game(render_state,&input,delta_time);
+        //draw_rect(render_state,0,0,.2,.2,0x00ff22);
         //Render
         //render_background(render_state);
 
@@ -95,6 +131,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         &render_state.bitmap_info,
         DIB_RGB_COLORS,
         SRCCOPY);
+
+        LARGE_INTEGER frame_end_time;
+        QueryPerformanceCounter(&frame_end_time);
+        delta_time = (float)(frame_end_time.QuadPart - frame_begin_time.QuadPart) / performance_frequency;
+        frame_begin_time = frame_end_time;
     }
     return 0;
 } 
