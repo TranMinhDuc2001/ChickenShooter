@@ -1,14 +1,14 @@
-#Chicken Shooter
+# Chicken Shooter
 In this project, i learn about create a game only by C and C++
-#Table of Content
--[Init Game](#Init Game)
--[Drawing Graphic](#Drawing Graphic)
--[Input, Movement and Time](#Input, Movement and Time)
-##Init Game
+# Table of Content
+- [Init Game](#Init Game)
+- [Drawing Graphic](#Drawing Graphic)
+- [Input, Movement and Time](#Input, Movement and Time)
+## Init Game
 
-##Drawing Graphic
+## Drawing Graphic
 
-##Input, Moment and Time
+## Input, Moment and Time
 Init 4 Orientation Key to make an object move
 When you press a button, a single frame is generated
 A Button has 2 state: Press and Release
